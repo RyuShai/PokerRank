@@ -21,6 +21,13 @@ Item {
                     width: 100
                     Text {
                         text: model.modelData.name
+                        Component.onCompleted: {
+                            var list = model.modelData.value;
+                            for(var i= 0;i<list.length;i++)
+                            {
+                                console.log("indext: "+index+" "+ list[i])
+                            }
+                        }
                     }
                 }
 
