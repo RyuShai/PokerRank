@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>PlayerDetail.qml</file>
+        <file>GameDetail.qml</file>
+    </qresource>
+</RCC>
