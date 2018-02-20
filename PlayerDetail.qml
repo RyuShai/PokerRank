@@ -19,16 +19,21 @@ Item {
                 Rectangle{
                     height: 25
                     width: 100
-                    Text {
-                        text: model.modelData.name
-                        Component.onCompleted: {
-                            var list = model.modelData.value;
-                            for(var i= 0;i<list.length;i++)
-                            {
-                                console.log("indext: "+index+" "+ list[i])
+                    color: index%2>0?"green":"red"
+                    Row{
+                        Text {
+                            text: model.modelData.name
+                            Component.onCompleted: {
+                                var list = model.modelData.value;
+                                for(var i= 0;i<list.length;i++)
+                                {
+                                    console.log("indext: "+index+" "+ list[i])
+                                }
                             }
                         }
                     }
+
+
                 }
 
     }
