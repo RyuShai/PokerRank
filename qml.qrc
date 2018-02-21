@@ -5,5 +5,7 @@
         <file>qtquickcontrols2.conf</file>
         <file>PlayerDetail.qml</file>
         <file>GameDetail.qml</file>
+        <file>LineChartProperty.qml</file>
+        <file>Calculte.js</file>
     </qresource>
 </RCC>

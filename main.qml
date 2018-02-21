@@ -1,12 +1,12 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-
+import QtCharts 2.2
 ApplicationWindow {
     visible: true
-    width: maximumWidth
-    height: maximumHeight
+    width: 800
+    height: 600
     title: qsTr("Tabs")
-//    property QtObject name: myModel
+
     SwipeView {
         id: swipeView
         anchors.fill: parent
@@ -16,7 +16,10 @@ ApplicationWindow {
             height: maximumHeight
             width: maximumWidth
         }
-
+        GameDetail{
+            width: maximumWidth
+            height: maximumHeight
+        }
     }
 
     footer: TabBar {
@@ -30,4 +33,5 @@ ApplicationWindow {
             text: qsTr("Page 2")
         }
     }
+
 }

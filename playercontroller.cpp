@@ -1,10 +1,15 @@
 #include "playercontroller.h"
-
-
+#include <QtGlobal>
 
 PlayerController::PlayerController()
 {
-    LoadPlayerModel("/home/ryu/Documents/Project/Qt/PokerRank/PlayerData");
+#ifdef Q_OS_LINUX
+    LoadPlayerModel("../PokerRank/PlayerData.db");
+    #endif
+#if defined(Q_OS_ANDROID)
+    LoadPlayerModel("/storage/emulated/0/PlayerData.db");
+#endif
+
 }
 
 void PlayerController::setPlayerData(PlayerModel* newPlayer)

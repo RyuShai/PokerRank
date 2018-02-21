@@ -3,12 +3,14 @@
 #include "playercontroller.h"
 #include <QQmlContext>
 #include <QDebug>
+#include <QtWidgets/QApplication>
 #include <QList>
+#include <QDir>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
-    QGuiApplication app(argc, argv);
+    qDebug()<<"PATH: "<<QDir::currentPath();
+    QApplication app(argc, argv);
     PlayerController player;
     QList<PlayerModel*> listPlayer;
     QList<QObject*> myModel;
