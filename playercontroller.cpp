@@ -9,7 +9,7 @@ PlayerController::PlayerController()
 #if defined(Q_OS_ANDROID)
     LoadPlayerModel("/storage/emulated/0/PlayerData.db");
 #endif
-
+//    LoadPlayerModel(":/PlayerData.db");
 }
 
 void PlayerController::setPlayerData(PlayerModel* newPlayer)
@@ -19,6 +19,7 @@ void PlayerController::setPlayerData(PlayerModel* newPlayer)
 
 void PlayerController::LoadPlayerModel(QString path)
 {
+    qDebug()<<path;
     mDatabase = QSqlDatabase::addDatabase("QSQLITE");
     mDatabase.setDatabaseName(path);
     if(!mDatabase.open())
@@ -44,7 +45,6 @@ void PlayerController::LoadListModel()
         playerModel->setDate(listPlayerDate.at(i));
         listModel.append(playerModel);
     }
-    qDebug()<<"listmodel size: "<<listModel.size();
 }
 
 void PlayerController::InsertPlayerValue()
@@ -79,6 +79,7 @@ void PlayerController::LoadPlayerValue()
         {
             int value = query.value("value").toInt();
             playerValue.append(value);
+            qDebug()<<"value: "<<value;
 
         }
         listPlayerValue.append(playerValue);
@@ -103,10 +104,10 @@ void PlayerController::LoadPlayerDate()
     {
         QString sqlCmd ="SELECT date FROM PlayerValue WHERE name = '"+listPlayerName.at(i)+"'";
         QSqlQuery query(sqlCmd);
-        QList<QDate> playerDate;
+        QList<QString> playerDate;
         while(query.next())
         {
-            QDate value = query.value("date").toDate();
+            QString value = query.value("date").toString();
             playerDate.append(value);
 
         }

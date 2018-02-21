@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/DB">
+        <file>PlayerData.db</file>
+    </qresource>
+    <qresource prefix="/source"/>
+</RCC>

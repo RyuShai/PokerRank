@@ -14,9 +14,6 @@ int main(int argc, char *argv[])
     PlayerController player;
     QList<PlayerModel*> listPlayer;
     QList<QObject*> myModel;
-    listPlayer.append(new PlayerModel("test1", {1,2,3},{QDate::currentDate()}));
-    listPlayer.append(new PlayerModel("test2", {4,5,6},{QDate::currentDate()}));
-
     for(int i=0; i<player.playerData().size();i++)
     {
         myModel.append(player.playerData().at(i));

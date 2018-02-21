@@ -7,5 +7,6 @@
         <file>GameDetail.qml</file>
         <file>LineChartProperty.qml</file>
         <file>Calculte.js</file>
+        <file>PlayerData.db</file>
     </qresource>
 </RCC>

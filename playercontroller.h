@@ -28,7 +28,7 @@ private:
     QSqlDatabase mDatabase;
     QList<QString> listPlayerName;
     QList<QList<int>> listPlayerValue;
-    QList<QList<QDate>> listPlayerDate;
+    QList<QList<QString>> listPlayerDate;
     QList<PlayerModel*> listModel;
 
     void LoadPlayerName();
