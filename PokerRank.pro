@@ -33,4 +33,5 @@ HEADERS += \
     playermodel.h \
     playercontroller.h
 
-DISTFILES +=
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

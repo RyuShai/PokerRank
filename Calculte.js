@@ -52,3 +52,15 @@ function printArray(array)
        console.log("printArray: "+array[i])
     }
 }
+
+function getTotalScore(strScore)
+{
+    var score=0;
+    var listScore = strScore.split("\n");
+    for(var i=0; i<listScore.length;i++)
+    {
+        score+=Number(listScore[i])
+    }
+    return score
+}
+

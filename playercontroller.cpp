@@ -61,7 +61,7 @@ void PlayerController::LoadPlayerName()
     {
        QString name = query.value(idName).toString();
        listPlayerName.append(name);
-       qDebug() << name;
+//       qDebug() << name;
     }
     LoadPlayerValue();
     LoadPlayerDate();
@@ -79,7 +79,7 @@ void PlayerController::LoadPlayerValue()
         {
             int value = query.value("value").toInt();
             playerValue.append(value);
-            qDebug()<<"value: "<<value;
+//            qDebug()<<"value: "<<value;
 
         }
         listPlayerValue.append(playerValue);

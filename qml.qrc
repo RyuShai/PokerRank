@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>PlayerDetail.qml</file>
         <file>GameDetail.qml</file>
         <file>LineChartProperty.qml</file>
         <file>Calculte.js</file>
         <file>PlayerData.db</file>
+        <file>GameDetailCollum.qml</file>
+        <file>main.qml</file>
     </qresource>
 </RCC>
