@@ -20,28 +20,28 @@ function smallest(array) {
 
 function getDay(strDay)
 {
-    console.log("getDay: "+strDay)
+    //console.log("getDay: "+strDay)
     var result = strDay.split("-");
 
     result = result[result.length-1];
-    console.log("getDay result: "+ result)
+    //console.log("getDay result: "+ result)
     return Number(result)
 }
 function getMonth(strDay)
 {
-    console.log("getMonth: "+strDay)
+    //console.log("getMonth: "+strDay)
     var result = strDay.split("-");
 
     result = result[1];
-    console.log("getMonth result: "+ result)
+    //console.log("getMonth result: "+ result)
     return Number(result)
 }
 function getYear(strDay)
 {
-    console.log("getYeah: "+strDay)
+    //console.log("getYeah: "+strDay)
     var result = strDay.split("-");
     result = result[0];
-    console.log("getYeah result: "+ result)
+    //console.log("getYeah result: "+ result)
     return Number(result)
 }
 
@@ -49,14 +49,14 @@ function printArray(array)
 {
     for(var i=0; i<array.length;i++)
     {
-       console.log("printArray: "+array[i])
+       //console.log("printArray: "+array[i])
     }
 }
 
 function getTotalScore(strScore)
 {
     var score=0;
-    var listScore = strScore.split("\n");
+    var listScore = strScore.split(" ");
     for(var i=0; i<listScore.length;i++)
     {
         score+=Number(listScore[i])
@@ -64,3 +64,16 @@ function getTotalScore(strScore)
     return score
 }
 
+function getListScoreSize(strScore)
+{
+
+    var listScore = strScore.split(" ");
+
+    return listScore.length
+}
+
+function addNewPlayer(listPlayer, player)
+{
+    listPlayer.add(player)
+    return listPlayer
+}

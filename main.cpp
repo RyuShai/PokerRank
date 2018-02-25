@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
     qDebug()<<"PATH: "<<QDir::currentPath();
     QApplication app(argc, argv);
     PlayerController player;
-    QList<PlayerModel*> listPlayer;
-    QList<QObject*> myModel;
-    for(int i=0; i<player.playerData().size();i++)
-    {
-        myModel.append(player.playerData().at(i));
-    }
+//    QList<QObject*> myModel;
+//    for(int i=0; i<player.playerData().size();i++)
+//    {
+//        myModel.append(player.playerData().at(i));
+//    }
 
 //    qDebug()<<"debug: "<<myModel.at(0)->getValue().at(0);
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("myModel",QVariant::fromValue(myModel));
+//    engine.rootContext()->setContextProperty("myModel",QVariant::fromValue(player.playerData()));
+    engine.rootContext()->setContextProperty("playerControl",&player);
 //    qDebug()<<player->getValue().size();
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

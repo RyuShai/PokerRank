@@ -1,57 +1,67 @@
 import QtQuick 2.7
 import QtCharts 2.2
 import "Calculte.js" as Cal
-import QtQuick.Controls 1.4
-Item {
-    height: parent.height
-    width: parent.width
-    Column{
-        Rectangle{
-            width: maximumWidth
+import QtQuick.Controls 2.3
+import QtQuick.Layouts 1.3
+ColumnLayout {
+    id:root
+    RowLayout{
+        height: 25
+        implicitWidth:  411
+        Layout.fillHeight: true
+        Button{
+            id:previousYear
+            text:"previous Year"
             height: 25
-            Row{
-                Button{
-                    id:previousYear
-                    text:"previous Year"
-                }
-
-                Button{
-                    id:previousMonth
-                    text:"previous Month"
-                }
-                Button{
-                    id:nextMonth
-                    text:"next month"
-                }
-                Button{
-                    id:nextYear
-                    text:"next year"
-                }
-            }
+            Layout.fillWidth: true
         }
+
+        Button{
+            id:previousMonth
+            text:"previous Month"
+            height: 25
+            Layout.fillWidth: true
+        }
+        Button{
+            id:nextMonth
+            text:"next month"
+            height: 25
+            Layout.fillWidth: true
+        }
+        Button{
+            id:nextYear
+            text:"next year"
+            height: 25
+            Layout.fillWidth: true
+        }
+    }
+
+
 
         ListView{
             id: playerList
-
-            height: maximumHeight
-            model: myModel
+            Layout.fillHeight: true
+    //        opacity: 0.3
+//            height: maximumHeight
+            model: playerControl.playerData
             delegate:playerListDelegate
+            Layout.fillWidth: true
+            ScrollBar.vertical: ScrollBar{
 
-
-            //        Component.onCompleted: console.log("count: "+ model[0].name)
+            }
         }
-    }
+
 
     Component{
         id: playerListDelegate
         Rectangle{
             id: rootDelegate
             height: 200
-            //            width: maximumWidth
+                        width: maximumWidth
             //            color: index%2>0?"green":"red"
             property var listValue: model.modelData.value
             property var listDate: model.modelData.date
-            Row{
+//            Row{
                 //                Text {
                 //                    text: model.modelData.name
                 //                    width: 100
@@ -63,11 +73,11 @@ Item {
                 //                        }
                 //                    }
                 //                }
-                Rectangle{
-                    color:rootDelegate.color
-                    width: 800
-                    height: 200
-                    anchors.bottomMargin: 0
+//                Rectangle{
+//                    color:rootDelegate.color
+//                    width: root.width
+//                    height: 200
+//                    anchors.bottomMargin: 0
                     ChartView{
                         height: 100
                         width: 100
@@ -93,15 +103,14 @@ Item {
                                 //                                console.log("listvalue: "+rootDelegate.listDate.length)
                                 Cal.getMonth(rootDelegate.listDate[0])
                                 for (var i = 0; i < rootDelegate.listValue.length; i++) {
-                                    console.log("fuck "+rootDelegate.listValue[i])
                                     lineChart.append(Cal.getDay(rootDelegate.listDate[i]),rootDelegate.listValue[i]);
                                     //                series2.append(i, Math.random());
                                 }
                             }
                         }
                     }
-                }
-            }
+//                }
+//            }
         }
     }
 }

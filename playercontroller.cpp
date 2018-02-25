@@ -1,27 +1,84 @@
 #include "playercontroller.h"
 #include <QtGlobal>
 
+void PlayerController::InsertPlayerValue(QString playeName, int playerValue, int game)
+{
+    mDatabase.setDatabaseName(path2Database);
+    if(!mDatabase.open())
+    {
+        qDebug("open database failed");
+    }
+    else
+    {
+        qDebug("open database success");
+        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+QDate::currentDate().toString()+"',"+playerValue+","+game+")";
+        QSqlQuery query(insertPlayerValue);
+        query.exec();
+        mDatabase.close();
+    }
+}
+
+void PlayerController::InsertPlayerName(QString playerName)
+{
+    mDatabase.setDatabaseName(path2Database);
+    if(!mDatabase.open())
+    {
+        qDebug("open database failed");
+    }
+    else
+    {
+        qDebug("open database success");
+        QString inserPlayerName = "INSERT INTO PlayerName (name) VALUES ('"+playerName+"')";
+        qDebug()<<"inserPlayerName: "<<inserPlayerName;
+        QSqlQuery query;
+        query.prepare(inserPlayerName);
+        if(query.exec())
+        {
+            qDebug()<<"insert name success";
+            mDatabase.close();
+            LoadPlayerModel(path2Database);
+
+        }
+        else
+        {
+            qDebug()<<"insert name fail";
+        }
+
+    }
+
+}
+
 PlayerController::PlayerController()
 {
+    mDatabase = QSqlDatabase::addDatabase("QSQLITE");
 #ifdef Q_OS_LINUX
     LoadPlayerModel("../PokerRank/PlayerData.db");
     #endif
 #if defined(Q_OS_ANDROID)
     LoadPlayerModel("/storage/emulated/0/PlayerData.db");
 #endif
-//    LoadPlayerModel(":/PlayerData.db");
+    //    LoadPlayerModel(":/PlayerData.db");
 }
 
-void PlayerController::setPlayerData(PlayerModel* newPlayer)
+void PlayerController::setPlayerData(QList<QObject *> newPlayer)
 {
-    listModel.append(newPlayer);
+
 }
+
 
 void PlayerController::LoadPlayerModel(QString path)
 {
     qDebug()<<path;
-    mDatabase = QSqlDatabase::addDatabase("QSQLITE");
-    mDatabase.setDatabaseName(path);
+    if(path2Database.isEmpty()||path2Database!=path)
+    {
+        path2Database = path;
+    }
+
+    myModel.clear();
+    listPlayerDate.clear();
+    listPlayerName.clear();
+    listPlayerValue.clear();
+    mDatabase.setDatabaseName(path2Database);
     if(!mDatabase.open())
     {
         qDebug("open database failed");
@@ -43,14 +100,20 @@ void PlayerController::LoadListModel()
         playerModel->setName(listPlayerName.at(i));
         playerModel->setValue(listPlayerValue.at(i));
         playerModel->setDate(listPlayerDate.at(i));
-        listModel.append(playerModel);
+//        listModel.append(playerModel);
+        myModel.append(playerModel);
     }
+//    setPlayerData(listModel);
+    qDebug()<<"MyModel size: "<<myModel.size()<<endl;
+   emit playerDataChanged();
 }
 
-void PlayerController::InsertPlayerValue()
+void PlayerController::AddPlayer2Database(QString playeName, int playerValue, int game)
 {
 
 }
+
+
 
 void PlayerController::LoadPlayerName()
 {

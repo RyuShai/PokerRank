@@ -1,47 +1,136 @@
 import QtQuick 2.0
 import QtCharts 2.2
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Styles 1.4
 import "Calculte.js" as Cal
 Item {
-    property var listPlayer: myModel
-
+    property var listPlayer: playerControl.playerData
+    height: 821
+    width: 411
+    x:0
+    y:0
+//    clip:true
     ScrollView{
-        anchors.fill: parent
-        Row{
+        height: parent.height
+        ColumnLayout{
             id:root
             spacing: 2
+            height: parent.height
+            RowLayout{
+                Button{
+                    text:"add new"
+                    onClicked:{
+                        popup.open()
+                    }
+                }
+
+            }
             Repeater{
+                id: repeatPlayer
                 model: listPlayer.length
-                Column{
+                GridLayout{
+                    columns: 3
                     Button{
                         id: playerName
                         text: listPlayer[index].name
                         leftPadding: 0
                         onClicked: {
-                            playerScore.text = playerScore.text+"\n200";
+                            if(Cal.getListScoreSize(playerScore.text)==6)
+                            {
+                                playerScore.text = Cal.getTotalScore(playerScore.text) + " 200"
+                            }
+                            else
+                            {
+                                playerScore.text = playerScore.text+" 200";
+                            }
+
+
                         }
+
+                        Layout.fillWidth: true
                     }
                     TextEdit{
                         id: playerScore
-                        text: "200\n200"
+                        text: "200 200"
                         width: playerName.width
                         anchors.bottomMargin: 10
+                        Layout.fillWidth: true
                     }
 
                     Label{
                         id:playerResult
-                        width: playerName.width
+//                        width: playerName.width
                         text:Cal.getTotalScore(playerScore.text)
                         background: Rectangle{
                             color: "yellow"
                         }
+                        Layout.fillWidth: true
                     }
                 }
             }
+
+
             Component.onCompleted: {
                 console.log("width: "+ root.width)
             }
         }
     }
+    Popup {
+            id: popup
+            x: 100
+            y: 100
+            width: 230
+            height: 300
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            ColumnLayout{
+                TextEdit{
+                    id: newPlayerName
+                    Layout.fillWidth: true
+                    text: "edit here"
+                    selectByMouse: true
+                    onCursorVisibleChanged: {
+                        if(cursorVisible)
+                            newPlayerName.selectAll()
+                    }
+
+                    Rectangle{
+                        anchors.fill: parent
+                        color: "blue"
+                        opacity: 0.3
+                    }
+                }
+                RowLayout{
+                    width: 200
+                    Layout.fillWidth: true
+                    Button{
+                        text:"ok"
+                        Rectangle{
+                            anchors.fill: parent
+                            color: "red"
+                            opacity: 0.3
+                        }
+                        Layout.fillWidth: true
+                        onClicked: {
+                           playerControl.InsertPlayerName(newPlayerName.text);
+                           popup.close()
+                        }
+                    }
+                    Button{
+                        Layout.fillWidth: true
+                        Rectangle{
+                            anchors.fill: parent
+                            color: "yellow"
+                            opacity: 0.3
+                        }
+                        text: "cancel"
+                        onClicked: {
+                            popup.close()
+                        }
+                    }
+                }
+            }
+        }
 }
