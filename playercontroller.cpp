@@ -1,7 +1,7 @@
 #include "playercontroller.h"
 #include <QtGlobal>
 
-void PlayerController::InsertPlayerValue(QString playeName, int playerValue, int game)
+void PlayerController::InsertPlayerValue(QString playeName, QString playerValue, QString game)
 {
     mDatabase.setDatabaseName(path2Database);
     if(!mDatabase.open())
@@ -11,7 +11,9 @@ void PlayerController::InsertPlayerValue(QString playeName, int playerValue, int
     else
     {
         qDebug("open database success");
-        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+QDate::currentDate().toString()+"',"+playerValue+","+game+")";
+//        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+QDate::currentDate().toString()+"',"+playerValue+","+game+")";
+        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+"2018-02-02"+"',"+playerValue+","+game+")";
+        qDebug()<<insertPlayerValue;
         QSqlQuery query(insertPlayerValue);
         query.exec();
         mDatabase.close();
@@ -46,6 +48,20 @@ void PlayerController::InsertPlayerName(QString playerName)
 
     }
 
+}
+
+void PlayerController::DeletePlayer(int index)
+{
+    myModel.removeAt(index);
+    emit playerDataChanged();
+}
+
+void PlayerController::AddPlayer(QString playerName)
+{
+    qDebug()<<"current date: "<<QDate::currentDate().toString("yyyy-mm-dd");
+    PlayerModel* player = new PlayerModel(playerName,{200},{QDate::currentDate().toString("yyyy-mm-dd")});
+    myModel.append(player);
+    emit playerDataChanged();
 }
 
 PlayerController::PlayerController()
@@ -135,12 +151,13 @@ void PlayerController::LoadPlayerValue()
     int numberPlayer = listPlayerName.size();
     for(int i=0; i<numberPlayer;i++)
     {
-        QString sqlCmd ="SELECT value FROM PlayerValue WHERE name = '"+listPlayerName.at(i)+"'";
+        QString sqlCmd ="SELECT value FROM PlayerValue WHERE name = '"+listPlayerName.at(i)+"' ORDER BY Game ASC";
         QSqlQuery query(sqlCmd);
         QList<int> playerValue;
         while(query.next())
         {
             int value = query.value("value").toInt();
+            qDebug()<<"name: "+listPlayerName.at(i)+" VALUE: "<<value;
             playerValue.append(value);
 //            qDebug()<<"value: "<<value;
 
@@ -165,7 +182,7 @@ void PlayerController::LoadPlayerDate()
 {
     for(int i=0; i<listPlayerName.size();i++)
     {
-        QString sqlCmd ="SELECT date FROM PlayerValue WHERE name = '"+listPlayerName.at(i)+"'";
+        QString sqlCmd ="SELECT date FROM PlayerValue WHERE name = '"+listPlayerName.at(i)+"' ORDER BY date ASC";
         QSqlQuery query(sqlCmd);
         QList<QString> playerDate;
         while(query.next())

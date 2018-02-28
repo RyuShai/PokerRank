@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtCharts 2.2
 import "Calculte.js" as Cal
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 ColumnLayout {
     id:root
@@ -101,8 +101,9 @@ ColumnLayout {
                             Component.onCompleted: {
                                 Cal.printArray(rootDelegate.listDate)
                                 //                                console.log("listvalue: "+rootDelegate.listDate.length)
-                                Cal.getMonth(rootDelegate.listDate[0])
+//                                Cal.getMonth(rootDelegate.listDate[0])
                                 for (var i = 0; i < rootDelegate.listValue.length; i++) {
+                                    console.log("name: "+lineChart.name + " "+ Cal.getDay(rootDelegate.listDate[i])+ " "+rootDelegate.listValue[i])
                                     lineChart.append(Cal.getDay(rootDelegate.listDate[i]),rootDelegate.listValue[i]);
                                     //                series2.append(i, Math.random());
                                 }

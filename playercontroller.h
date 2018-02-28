@@ -13,8 +13,10 @@ class PlayerController :public QObject
     Q_OBJECT
     Q_PROPERTY(QList<QObject*> playerData READ playerData WRITE setPlayerData NOTIFY playerDataChanged)
 public:
-    Q_INVOKABLE void InsertPlayerValue(QString playerName, int playerValue,int game);
+    Q_INVOKABLE void InsertPlayerValue(QString playerName, QString playerValue,QString game);
     Q_INVOKABLE void InsertPlayerName(QString playerName);
+    Q_INVOKABLE void DeletePlayer(int index);
+    Q_INVOKABLE void AddPlayer(QString playerName);
     PlayerController();
     void setPlayerData(QList<QObject*> newPlayer);
     QList<QObject*> playerData(){return myModel;}
