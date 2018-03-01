@@ -1,5 +1,6 @@
 #include "playercontroller.h"
 #include <QtGlobal>
+#include <QSqlField>
 
 void PlayerController::InsertPlayerValue(QString playeName, QString playerValue, QString game)
 {
@@ -11,8 +12,8 @@ void PlayerController::InsertPlayerValue(QString playeName, QString playerValue,
     else
     {
         qDebug("open database success");
-//        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+QDate::currentDate().toString()+"',"+playerValue+","+game+")";
-        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+"2018-02-02"+"',"+playerValue+","+game+")";
+        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+QDate::currentDate().toString("yyyy-MM-dd")+"',"+playerValue+","+game+")";
+////        QString insertPlayerValue = "INSERT INTO PlayerValue (name,date,value,Game) VALUES ('"+playeName+"','"+"2018-02-02"+"',"+playerValue+","+game+")";
         qDebug()<<insertPlayerValue;
         QSqlQuery query(insertPlayerValue);
         query.exec();
@@ -66,6 +67,7 @@ void PlayerController::AddPlayer(QString playerName)
 
 PlayerController::PlayerController()
 {
+    _game="-1";
     mDatabase = QSqlDatabase::addDatabase("QSQLITE");
 #ifdef Q_OS_LINUX
     LoadPlayerModel("../PokerRank/PlayerData.db");
@@ -116,6 +118,7 @@ void PlayerController::LoadListModel()
         playerModel->setName(listPlayerName.at(i));
         playerModel->setValue(listPlayerValue.at(i));
         playerModel->setDate(listPlayerDate.at(i));
+        playerModel->setGame(listPlayerGame.at(i));
 //        listModel.append(playerModel);
         myModel.append(playerModel);
     }
@@ -124,9 +127,26 @@ void PlayerController::LoadListModel()
    emit playerDataChanged();
 }
 
-void PlayerController::AddPlayer2Database(QString playeName, int playerValue, int game)
-{
 
+QString PlayerController::game()
+{
+    mDatabase.setDatabaseName(path2Database);
+    if(!mDatabase.open())
+    {
+        qDebug("open database failed");
+    }
+    else
+    {
+        qDebug("open database success");
+        QString getMaxGame = "SELECT MAX(Game) FROM PlayerValue";
+        QSqlQuery query;
+//        QSqlRecord rec = query.record();
+        query.exec(getMaxGame);
+        query.first();
+        qDebug()<<"collum: "<<query.value("MAX(Game)").toInt()+1;
+        _game = QString::number((query.value("MAX(Game)").toInt())+1);
+    }
+    return _game;
 }
 
 
@@ -144,6 +164,7 @@ void PlayerController::LoadPlayerName()
     }
     LoadPlayerValue();
     LoadPlayerDate();
+    LoadPlayerGame();
 }
 
 void PlayerController::LoadPlayerValue()
@@ -165,17 +186,6 @@ void PlayerController::LoadPlayerValue()
         listPlayerValue.append(playerValue);
     }
 
-//    //test
-//    for(int i= 0; i<listPlayerValue.size();i++)
-//    {
-//        QList<int> player = listPlayerValue.at(i);
-//        QDebug dbug = qDebug();
-//        for(int j=0; j<player.size();j++)
-//        {
-//            dbug<<player.at(j)<<" ";
-//        }
-
-    //    }
 }
 
 void PlayerController::LoadPlayerDate()
@@ -204,5 +214,22 @@ void PlayerController::LoadPlayerDate()
 //                dbug<<player.at(j).<<" ";
 //            }
 
-//            }
+    //            }
+}
+
+void PlayerController::LoadPlayerGame()
+{
+    for(int i=0; i<listPlayerName.size();i++)
+    {
+        QString sqlCmd ="SELECT Game FROM PlayerValue WHERE name = '"+listPlayerName.at(i)+"' ORDER BY date ASC";
+        QSqlQuery query(sqlCmd);
+        QList<int> playerGame;
+        while(query.next())
+        {
+            int value = query.value("Game").toInt();
+            playerGame.append(value);
+
+        }
+        listPlayerGame.append(playerGame);
+    }
 }

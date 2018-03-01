@@ -52,7 +52,7 @@ Item {
                     }
                     TextEdit{
                         id: gameNumber
-                        text:"3"
+                        text:playerControl.game
                         font.bold: true
                     }
                 }
@@ -66,7 +66,7 @@ Item {
                     onClicked: {
                         for(var i=0; i<listPlayer.length;i++)
                         {
-                            console.log("finished: "+ listPlayerValue[i] + " name: "+ listPlayer[i].name)
+//                            console.log("finished: "+ listPlayerValue[i] + " name: "+ listPlayer[i].name)
                             playerControl.InsertPlayerValue(listPlayer[i].name, parseInt(listPlayerValue[i],10),gameNumber.text )
                         }
                     }

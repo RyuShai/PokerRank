@@ -38,80 +38,82 @@ ColumnLayout {
 
 
 
-        ListView{
-            id: playerList
-            Layout.fillHeight: true
-    //        opacity: 0.3
-//            height: maximumHeight
-            model: playerControl.playerData
-            delegate:playerListDelegate
-            Layout.fillWidth: true
-            ScrollBar.vertical: ScrollBar{
+    ListView{
+        id: playerList
+        Layout.fillHeight: true
+        //        opacity: 0.3
+        //            height: maximumHeight
+        model: playerControl.playerData
+        delegate:playerListDelegate
+        Layout.fillWidth: true
+//        clip: true
+        ScrollBar.vertical: ScrollBar{
 
-            }
         }
+    }
 
 
     Component{
         id: playerListDelegate
         Rectangle{
             id: rootDelegate
-            height: 200
-                        width: maximumWidth
-            //            color: index%2>0?"green":"red"
+            height: 220
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+            width: parent.width
             property var listValue: model.modelData.value
-            property var listDate: model.modelData.date
-//            Row{
-                //                Text {
-                //                    text: model.modelData.name
-                //                    width: 100
-                //                    Component.onCompleted: {
-                ////                        var list = model.modelData.value;
-                //                        for(var i= 0;i<listValue.length;i++)
-                //                        {
-                //                            console.log("indext: "+index+" "+ listValue[i])
-                //                        }
-                //                    }
-                //                }
-//                Rectangle{
-//                    color:rootDelegate.color
-//                    width: root.width
-//                    height: 200
-//                    anchors.bottomMargin: 0
-                    ChartView{
-                        height: 100
-                        width: 100
-                        theme: ChartView.ChartThemeDark
-                        anchors.fill: parent
-                        antialiasing: true
-                        anchors.bottomMargin: 0
-                        LineSeries{
-                            id: lineChart
-                            name:model.modelData.name
-                            axisX:ValueAxis{
-                                min:1
-                                max: 31
-                            }
-                            axisY:ValueAxis{
-                                min:Cal.smallest(rootDelegate.listValue)
-                                max: Cal.biggest(rootDelegate.listValue)
-                            }
+            property var listDate: model.modelData.game
+            ChartView{
+                id: chart
+                theme: ChartView.ChartThemeDark
+                anchors.fill: parent
+                antialiasing: true
+                anchors.rightMargin: 0
+                anchors.leftMargin: 0
+                anchors.bottomMargin: 0
+                anchors.topMargin: 0
+                animationOptions:ChartView.AllAnimations
+                animationDuration: 1500
+                DateTimeAxis{
+                    id: dateTime
+                    format: "yy/MM/dd"
+                    max: new Date("2018/12/31")
+                    min:new Date("2018/1/1")
+                }
+
+                LineSeries{
+                    id: lineChart
+                    name:model.modelData.name
+
+                    axisX:ValueAxis{
+                        min:0
+                        max: playerControl.game
+                        tickCount: 5
+                    }
+                    //                            axisX:dateTime
+                    axisY:ValueAxis{
+                        min:Cal.smallest(rootDelegate.listValue)
+                        max: Cal.biggest(rootDelegate.listValue)
+                        tickCount: 5
+                    }
 
 
-                            Component.onCompleted: {
-                                Cal.printArray(rootDelegate.listDate)
-                                //                                console.log("listvalue: "+rootDelegate.listDate.length)
-//                                Cal.getMonth(rootDelegate.listDate[0])
-                                for (var i = 0; i < rootDelegate.listValue.length; i++) {
-                                    console.log("name: "+lineChart.name + " "+ Cal.getDay(rootDelegate.listDate[i])+ " "+rootDelegate.listValue[i])
-                                    lineChart.append(Cal.getDay(rootDelegate.listDate[i]),rootDelegate.listValue[i]);
-                                    //                series2.append(i, Math.random());
-                                }
-                            }
+                    Component.onCompleted: {
+                        Cal.printArray(rootDelegate.listDate)
+                        //
+                        //                                Cal.getMonth(rootDelegate.listDate[0])
+                        for (var i = 0; i < rootDelegate.listValue.length; i++) {
+                            console.log("listvalue: "+rootDelegate.listDate[i])
+                            console.log("name: "+lineChart.name + " "+ rootDelegate.listDate[i]+ " "+rootDelegate.listValue[i])
+                            //                                    lineChart.append(Cal.getDay(rootDelegate.listDate[i]),rootDelegate.listValue[i]);
+                            lineChart.append(rootDelegate.listDate[i],rootDelegate.listValue[i]);
+                            //                series2.append(i, Math.random());
                         }
                     }
-//                }
-//            }
+                }
+            }
         }
     }
 }

@@ -17,8 +17,8 @@ ApplicationWindow {
         id: swipeView
         anchors.fill: parent
 //        currentIndex: tabBar.currentIndex
-        onCurrentIndexChanged: {
-        }
+//        onCurrentIndexChanged: {
+//        }
 
         PlayerDetail{
 
