@@ -35,6 +35,7 @@ Item {
 
                 }
                 Button{
+                    id: removePlayer
                     text:"delete"
                     Layout.fillWidth: true
                     height: 25
@@ -42,7 +43,9 @@ Item {
                     onClicked:{
                         console.log("index "+ repeaterIndex )
                        playerControl.DeletePlayer(repeaterIndex)
+                         enabled=false;
                     }
+                    enabled: false
                 }
 
                 Row{
@@ -122,6 +125,12 @@ Item {
                         Layout.fillWidth: true
                         onTextChanged: {
                             listPlayerValue[index]=text;
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                removePlayer.enabled=true
+                            }
                         }
                     }
                 }
