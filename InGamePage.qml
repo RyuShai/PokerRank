@@ -42,10 +42,19 @@ Rectangle {
                     id:totalPlayerValue
                     text:"should it zero"
                     anchors.verticalCenter: parent.verticalCenter
-                    padding: 100
+                    x: parent.width/2 -width/2
+                    font.bold: true
+                    background: Rectangle{
+                        color: "yellow"
+                        anchors.margins: 10
+                        radius: 5
+                    }
                 }
                 Button{
                     text: "Save"
+                    Layout.alignment: Qt.AlignRight
+//                    rightPadding: 100
+                    x: parent.width - width
                 }
             }
         }
