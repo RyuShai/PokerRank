@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>InGamePage.qml</file>
+        <file>PlayerData.db</file>
+    </qresource>
+</RCC>

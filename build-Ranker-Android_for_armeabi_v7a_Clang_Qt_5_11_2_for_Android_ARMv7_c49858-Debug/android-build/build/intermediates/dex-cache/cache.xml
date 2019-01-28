@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/ryu/Documents/Project/Qt/Ranker/build-Ranker-Android_for_armeabi_v7a_Clang_Qt_5_11_2_for_Android_ARMv7_c49858-Debug/android-build/libs/QtAndroidBearer.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="28.0.3"
+        sha1="94a1a80b9e44ca1db995b6d5adfc0884b9b0df8c">
+        <dex dex="/home/ryu/Documents/Project/Qt/Ranker/build-Ranker-Android_for_armeabi_v7a_Clang_Qt_5_11_2_for_Android_ARMv7_c49858-Debug/android-build/build/intermediates/pre-dexed/debug/QtAndroidBearer_7916052c4398290cedf2d8908d3fd6950d9b5d6a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ryu/Documents/Project/Qt/Ranker/build-Ranker-Android_for_armeabi_v7a_Clang_Qt_5_11_2_for_Android_ARMv7_c49858-Debug/android-build/libs/QtAndroid.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="28.0.3"
+        sha1="d67855f27e661311fd28b9dd93e753690fe2d84e">
+        <dex dex="/home/ryu/Documents/Project/Qt/Ranker/build-Ranker-Android_for_armeabi_v7a_Clang_Qt_5_11_2_for_Android_ARMv7_c49858-Debug/android-build/build/intermediates/pre-dexed/debug/QtAndroid_4f80e224fe8dcdf79c4b4d796715d7dacc9546a6.jar" />
+    </item>
+
+</items>

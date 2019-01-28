@@ -1,0 +1,4 @@
+#Fri Jan 25 14:34:12 ICT 2019
+base.0=/home/ryu/Documents/Project/Qt/Ranker/build-Ranker-Android_for_armeabi_v7a_Clang_Qt_5_11_2_for_Android_ARMv7_c49858-Debug/android-build/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/home/ryu/Documents/Project/Qt/Ranker/build-Ranker-Android_for_armeabi_v7a_Clang_Qt_5_11_2_for_Android_ARMv7_c49858-Debug/android-build/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
